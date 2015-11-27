@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace BetterCharacterController
+namespace BetterCharacterControllerFramework
 {
 
 	public class ControllerFallingState : ControllerState

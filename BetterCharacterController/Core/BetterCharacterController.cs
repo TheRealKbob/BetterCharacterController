@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace BetterCharacterController
+namespace BetterCharacterControllerFramework
 {
 
 	public class BetterCharacterController : MonoBehaviour
@@ -16,7 +16,19 @@ namespace BetterCharacterController
 		public float GravityScale{ get { return gravityScale; } }
 		private float gravitationalAcceleration = 9.81f;
 		private float gravity{  get { return gravityScale * gravitationalAcceleration; } }
-
+		
+		[SerializeField]
+		private float speed = 1f;
+		public float Speed{ get{ return speed; } }
+		
+		[SerializeField]
+		private float acceleration = 30f;
+		public float Acceleration{ get{ return acceleration; } }
+		
+		[SerializeField]
+		private float jumpHeight = 1f;
+		public float JumpHeight{ get{ return jumpHeight; } }
+		
 		[SerializeField]
 		private LayerMask environmentLayer;
 		public LayerMask EnvironmentLayer{ get { return environmentLayer; } }
@@ -57,8 +69,6 @@ namespace BetterCharacterController
 		
 			if( isClamping && clampedTo != null )
 				updateGroundClamping();
-		
-			moveVector += DebugMove * Time.deltaTime;
 			
 			groundController.Probe();
 			
@@ -93,7 +103,7 @@ namespace BetterCharacterController
 			bool contact = false;
 			foreach( Collider c in Physics.OverlapSphere( Position, Radius, EnvironmentLayer ) )
 			{
-				if( c.isTrigger )
+				if( c.isTrigger || c.gameObject == groundController.CurrentGround.GroundObject )
 					continue;
 					
 				contact = true;
@@ -107,7 +117,7 @@ namespace BetterCharacterController
 			{
 				recursivePushback(depth + 1, maxDepth);
 			}
-		}
+		}		
 		
 		public bool MaintainingGround()
 		{
@@ -142,9 +152,37 @@ namespace BetterCharacterController
 			return acquiredGround;
 		}
 
+		public void Move( Vector2 move ){ Move( move.x, move.y ); }
+		public void Move( Vector3 move ){ Move( move.x, move.z ); }
+		public void Move( float x, float z )
+		{
+			Vector3 forward = transform.forward;
+			Vector3 right = transform.right;
+			Vector3 local = Vector3.zero;
+			
+			if( x != 0 )
+				local += right * x;
+			if( z != 0 )
+				local += forward * z;
+				
+			Vector3 m = Vector3.MoveTowards( moveVector, local.normalized * Speed, Acceleration * Time.deltaTime );
+			moveVector = new Vector3( m.x, moveVector.y, m.z );
+		}
+
 		public void AddGravity()
 		{
 			moveVector -= new Vector3 ( 0, gravity * Time.deltaTime, 0 );
+		}
+		
+		public void AddJump()
+		{
+			isClamping = false;
+			moveVector += Up * Mathf.Sqrt( 2 * jumpHeight * gravity );
+		}
+		
+		public void ClearForce()
+		{
+			moveVector = Vector3.zero;
 		}
 
 	}

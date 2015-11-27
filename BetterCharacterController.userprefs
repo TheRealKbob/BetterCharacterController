@@ -1,15 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BetterCharacterController/Core/Debug/DebugDraw.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BetterCharacterController/Core/StateMachine/States/ControllerIdleState.cs">
     <Files>
-      <File FileName="BetterCharacterController/Core/BetterCharacterController.cs" Line="25" Column="3" />
-      <File FileName="BetterCharacterController/Core/GroundController.cs" Line="37" Column="87" />
-      <File FileName="BetterCharacterController/Core/StateMachine/ControllerStateMachine.cs" Line="21" Column="48" />
-      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerIdleState.cs" Line="19" Column="3" />
-      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerMovingState.cs" Line="10" Column="47" />
-      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerFallingState.cs" Line="26" Column="28" />
-      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerJumpingState.cs" Line="10" Column="47" />
-      <File FileName="BetterCharacterController/Core/Debug/DebugDraw.cs" Line="7" Column="33" />
+      <File FileName="BetterCharacterController/Core/BetterCharacterController.cs" Line="7" Column="34" />
+      <File FileName="BetterCharacterController/Core/GroundController.cs" Line="56" Column="45" />
+      <File FileName="BetterCharacterController/Core/StateMachine/ControllerStateMachine.cs" Line="5" Column="45" />
+      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerIdleState.cs" Line="31" Column="4" />
+      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerMovingState.cs" Line="4" Column="45" />
+      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerFallingState.cs" Line="4" Column="45" />
+      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerJumpingState.cs" Line="4" Column="45" />
+      <File FileName="BetterCharacterController/Core/Utilities/DebugDraw.cs" Line="4" Column="45" />
+      <File FileName="BetterCharacterController/Core/Utilities/MathUtils.cs" Line="4" Column="45" />
+      <File FileName="../../BetterCharacterController_TestEnv/Assets/Scripts/InputController.cs" Line="17" Column="96" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

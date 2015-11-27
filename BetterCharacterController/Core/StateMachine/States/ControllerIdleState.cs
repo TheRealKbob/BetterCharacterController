@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace BetterCharacterController
+namespace BetterCharacterControllerFramework
 {
 
 	public class ControllerIdleState : ControllerState
@@ -26,7 +26,8 @@ namespace BetterCharacterController
 			if( !controller.MaintainingGround() )
 			{
 				stateMachine.CurrentState = ControllerStateType.FALLING;
-			}
+				return;
+			}			
 		}
 		
 		public override void ExitState()
