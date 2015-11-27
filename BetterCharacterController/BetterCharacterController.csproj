@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FFB093B6-73EA-4086-A41B-460D83CF50A7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BetterCharacterController</RootNamespace>
+    <AssemblyName>BetterCharacterController</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp  /Users/acapobianchi/Documents/Work/Unity/Libraries/BetterCharacterController/BetterCharacterController/bin/Debug/BetterCharacterController.dll /Users/acapobianchi/Documents/Work/Unity/BetterCharacterController_TestEnv/Assets/Plugins" />
+      </CustomCommands>
+    </CustomCommands>
+    <EnvironmentVariables>
+      <EnvironmentVariables>
+        <Variable name="SrcDir" value="/Users/acapobianchi/Documents/Work/Unity/Libraries/BetterCharacterController/BetterCharacterController" />
+        <Variable name="PrjDir" value="/Users/acapobianchi/Documents/Work/Unity/BetterCharacterController_TestEnv/" />
+      </EnvironmentVariables>
+    </EnvironmentVariables>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>..\..\..\..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Core\BetterCharacterController.cs" />
+    <Compile Include="Core\GroundController.cs" />
+    <Compile Include="Core\StateMachine\ControllerStateMachine.cs" />
+    <Compile Include="Core\StateMachine\States\ControllerIdleState.cs" />
+    <Compile Include="Core\StateMachine\States\ControllerMovingState.cs" />
+    <Compile Include="Core\StateMachine\States\ControllerFallingState.cs" />
+    <Compile Include="Core\StateMachine\States\ControllerJumpingState.cs" />
+    <Compile Include="Core\Utilities\DebugDraw.cs" />
+    <Compile Include="Core\Utilities\MathUtils.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="Core\StateMachine\" />
+    <Folder Include="Core\StateMachine\States\" />
+    <Folder Include="Core\Utilities\" />
+  </ItemGroup>
+</Project>

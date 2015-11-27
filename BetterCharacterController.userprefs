@@ -1,0 +1,19 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BetterCharacterController/Core/Debug/DebugDraw.cs">
+    <Files>
+      <File FileName="BetterCharacterController/Core/BetterCharacterController.cs" Line="25" Column="3" />
+      <File FileName="BetterCharacterController/Core/GroundController.cs" Line="37" Column="87" />
+      <File FileName="BetterCharacterController/Core/StateMachine/ControllerStateMachine.cs" Line="21" Column="48" />
+      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerIdleState.cs" Line="19" Column="3" />
+      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerMovingState.cs" Line="10" Column="47" />
+      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerFallingState.cs" Line="26" Column="28" />
+      <File FileName="BetterCharacterController/Core/StateMachine/States/ControllerJumpingState.cs" Line="10" Column="47" />
+      <File FileName="BetterCharacterController/Core/Debug/DebugDraw.cs" Line="7" Column="33" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

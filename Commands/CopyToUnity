@@ -1,0 +1,1 @@
+cp /Users/acapobianchi/Documents/Work/Unity/Libraries/BetterCharacterController/BetterCharacterController/bin/Debug/BetterCharacterController.dll /Users/acapobianchi/Documents/Work/Unity/BetterCharacterController_TestEnv/Assets/Plugins
