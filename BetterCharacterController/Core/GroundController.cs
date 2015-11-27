@@ -33,7 +33,7 @@ namespace BetterCharacterControllerFramework
 			return false;
 		}
 		
-		private void clearGround()
+		public void Clear()
 		{
 			ground = null;
 		}
@@ -41,7 +41,7 @@ namespace BetterCharacterControllerFramework
 		public void Probe()
 		{
 			
-			clearGround();
+			Clear();
 			
 			float probeHeight = controller.Position.y + ( controller.Radius * 2 ) + ( Mathf.Abs(controller.Velocity.y) * Time.deltaTime );
 			Vector3 o = new Vector3( controller.Position.x, probeHeight, controller.Position.z );

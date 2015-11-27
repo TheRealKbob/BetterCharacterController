@@ -176,8 +176,12 @@ namespace BetterCharacterControllerFramework
 		
 		public void AddJump()
 		{
-			isClamping = false;
-			moveVector += Up * Mathf.Sqrt( 2 * jumpHeight * gravity );
+			if( groundController.IsGrounded( false ) )
+			{
+				groundController.Clear();
+				stateMachine.CurrentState = ControllerStateType.JUMPING;
+				moveVector += Up * Mathf.Sqrt( 2 * jumpHeight * gravity );
+			}
 		}
 		
 		public void ClearForce()
