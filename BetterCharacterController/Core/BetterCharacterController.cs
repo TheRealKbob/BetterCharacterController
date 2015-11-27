@@ -8,7 +8,9 @@ namespace BetterCharacterController
 	{
 	
 		public Vector3 DebugMove = Vector3.zero;
-
+	
+		private const int MAX_PUSHBACK_DEPTH = 2;
+	
 		[SerializeField]
 		private float gravityScale = 1;
 		public float GravityScale{ get { return gravityScale; } }
@@ -64,6 +66,8 @@ namespace BetterCharacterController
 			
 			stateMachine.DoUpdate();
 			
+			recursivePushback(0, MAX_PUSHBACK_DEPTH);
+			
 			groundController.Probe();
 			
 			velocity = ( transform.position - lastPosition ) / Time.deltaTime;
@@ -82,6 +86,27 @@ namespace BetterCharacterController
 		private void clampToGround()
 		{
 			transform.position = new Vector3( transform.position.x, groundController.CurrentGround.ControllerPoint.y, transform.position.z );
+		}
+
+		private void recursivePushback ( int depth, int maxDepth )
+		{
+			bool contact = false;
+			foreach( Collider c in Physics.OverlapSphere( Position, Radius, EnvironmentLayer ) )
+			{
+				if( c.isTrigger )
+					continue;
+					
+				contact = true;
+				Vector3 contactPoint = c.ClosestPointOnBounds( Position );
+				DebugDraw.DrawMarker( contactPoint, 0.25f, Color.cyan, 0.1f, false );
+				Vector3 v = Position - contactPoint;
+				transform.position += Vector3.ClampMagnitude( v, Mathf.Clamp( Radius - v.magnitude, 0, Radius ) );
+			}
+			
+			if ( depth < maxDepth && contact )
+			{
+				recursivePushback(depth + 1, maxDepth);
+			}
 		}
 		
 		public bool MaintainingGround()
