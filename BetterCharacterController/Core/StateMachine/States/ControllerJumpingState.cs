@@ -21,6 +21,8 @@ namespace BetterCharacterControllerFramework
 			if( !controller.AcquiringGround() )
 			{
 				controller.AddGravity();
+				if( controller.Velocity.y < 0 )
+					stateMachine.CurrentState = ControllerStateType.FALLING;
 			}
 			else
 			{

@@ -24,7 +24,7 @@ namespace BetterCharacterControllerFramework
 			Probe();
 			if( ground != null )
 			{			
-				float tolerance = ( isClamping ) ? 1.08f : 0;
+				float tolerance = ( isClamping ) ? 0.08f : 0;
 				if( Vector3.Distance( controller.Position, ground.Point ) <= controller.Radius + tolerance )
 				{
 					return true;
