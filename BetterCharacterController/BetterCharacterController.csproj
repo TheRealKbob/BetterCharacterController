@@ -39,7 +39,7 @@
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="xcopy &quot;E:\Unity Projects\BetterCharacterController\BetterCharacterController\bin\Debug\BetterCharacterController.dll&quot; &quot;E:\Unity Projects\BetterCharacterController\BetterCharacterController_TestProject\Assets\Plugins&quot;" externalConsole="True" />
+        <Command type="AfterBuild" command="xcopy &quot;E:\Unity Projects\BetterCharacterController\BetterCharacterController\bin\Debug PC\BetterCharacterController.dll&quot; &quot;E:\Unity Projects\BetterCharacterController\BetterCharacterController_TestProject\Assets\Plugins&quot;" externalConsole="True" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -66,6 +66,8 @@
     <Compile Include="Core\StateMachine\States\ControllerJumpingState.cs" />
     <Compile Include="Core\Utilities\DebugDraw.cs" />
     <Compile Include="Core\Utilities\MathUtils.cs" />
+    <Compile Include="TempController.cs" />
+    <Compile Include="Core\LocomotionController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -20,7 +20,7 @@ namespace BetterCharacterControllerFramework
 		
 		private BetterCharacterController controller;
 		
-		private ControllerState state = new ControllerState();
+		private ControllerState state = new ControllerState(null, null);
 		
 		private Dictionary<ControllerStateType, ControllerState> stateMap = new Dictionary<ControllerStateType, ControllerState>();
 		
@@ -72,10 +72,16 @@ namespace BetterCharacterControllerFramework
 	
 	public class ControllerState
 	{
-		
+		protected ControllerStateMachine stateMachine;
+		protected BetterCharacterController controller;
+
 		public ControllerStateType ID;
 	
-		public ControllerState(){}
+		public ControllerState(ControllerStateMachine stateMachine, BetterCharacterController controller)
+		{
+			this.stateMachine = stateMachine;
+			this.controller = controller;
+		}
 		
 		public virtual void EnterState(){}
 		public virtual void OnUpdate(){}

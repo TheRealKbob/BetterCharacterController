@@ -7,10 +7,7 @@ namespace BetterCharacterControllerFramework
 	public class ControllerIdleState : ControllerState
 	{
 		
-		private ControllerStateMachine stateMachine;
-		private BetterCharacterController controller;
-		
-		public ControllerIdleState( ControllerStateMachine stateMachine, BetterCharacterController controller )
+		public ControllerIdleState( ControllerStateMachine stateMachine, BetterCharacterController controller ) : base( stateMachine, controller )
 		{
 			this.stateMachine = stateMachine;
 			this.controller = controller;
@@ -18,16 +15,20 @@ namespace BetterCharacterControllerFramework
 		
 		public override void EnterState()
 		{
-			Debug.Log("Enter Idle State at " + controller.Velocity.y + " velocity");
+			Debug.Log("Enter Idle State");
+			controller.EnableGroundClamping = true;
 		}
 		
 		public override void OnUpdate()
 		{
-			if( !controller.MaintainingGround() )
-			{
+			if( controller.HorizontalInput != Vector2.zero )
+				stateMachine.CurrentState = ControllerStateType.MOVING;
+			else if( controller.VerticalInput > 0 )
+				stateMachine.CurrentState = ControllerStateType.JUMPING;
+			else if( !controller.Locomotion.MaintainingGround() )
 				stateMachine.CurrentState = ControllerStateType.FALLING;
-				return;
-			}			
+			else
+				controller.Locomotion.ApplyFriction();
 		}
 		
 		public override void ExitState()

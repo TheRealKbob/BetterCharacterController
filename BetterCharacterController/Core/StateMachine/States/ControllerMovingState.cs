@@ -7,14 +7,40 @@ namespace BetterCharacterControllerFramework
 	public class ControllerMovingState : ControllerState
 	{
 	
-		private ControllerStateMachine stateMachine;
-		private BetterCharacterController controller;
-	
-		public ControllerMovingState( ControllerStateMachine stateMachine, BetterCharacterController controller )
+		public ControllerMovingState( ControllerStateMachine stateMachine, BetterCharacterController controller ) : base( stateMachine, controller )
 		{
-			this.stateMachine = stateMachine;
-			this.controller = controller;
+		
 		}
+
+		public override void EnterState()
+		{
+			Debug.Log("Enter Moving State");
+			controller.EnableGroundClamping = true;
+		}
+		
+		public override void OnUpdate()
+		{
+			if( !controller.Locomotion.MaintainingGround() )
+			{
+				stateMachine.CurrentState = ControllerStateType.FALLING;
+				return;
+			}
+
+			Vector2 ih = controller.HorizontalInput;
+			float iv = controller.VerticalInput;
+			if( ih == Vector2.zero )
+			{
+				stateMachine.CurrentState = ControllerStateType.IDLE;
+				return;
+			}
+			controller.Locomotion.ApplyForce( new Vector3( ih.x, iv, ih.y ) );
+		}
+		
+		public override void ExitState()
+		{
+			Debug.Log("Exit Moving");
+		}
+
 	}
 
 }

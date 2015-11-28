@@ -7,27 +7,31 @@ namespace BetterCharacterControllerFramework
 	public class ControllerJumpingState : ControllerState
 	{
 	
-		private ControllerStateMachine stateMachine;
-		private BetterCharacterController controller;
-	
-		public ControllerJumpingState( ControllerStateMachine stateMachine, BetterCharacterController controller )
+		public ControllerJumpingState( ControllerStateMachine stateMachine, BetterCharacterController controller ) : base( stateMachine, controller )
 		{
-			this.stateMachine = stateMachine;
-			this.controller = controller;
+
+		}
+		
+		public override void EnterState()
+		{
+			Debug.Log("Enter Jumping State");
+			controller.EnableGroundClamping = false;
+			controller.Locomotion.ApplyForce( new Vector3( 0, 1, 0 ) );
 		}
 		
 		public override void OnUpdate()
 		{
-			if( !controller.AcquiringGround() )
-			{
-				controller.AddGravity();
-				if( controller.Velocity.y < 0 )
-					stateMachine.CurrentState = ControllerStateType.FALLING;
-			}
-			else
+			if( controller.Locomotion.AcquiringGround() )
 			{
 				stateMachine.CurrentState = ControllerStateType.IDLE;
+				return;
 			}
+			controller.Locomotion.ApplyForce( new Vector3( 0, -1, 0 ) );
+		}
+		
+		public override void ExitState()
+		{
+			Debug.Log("Exit Jumping");
 		}
 	}
 

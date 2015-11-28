@@ -7,13 +7,13 @@ namespace BetterCharacterControllerFramework
 	public class GroundController
 	{
 	
-		private BetterCharacterController controller;
+		private LocomotionController controller;
 		private LayerMask environmentLayer;
 		
 		private Ground ground;
 		public Ground CurrentGround{ get{ return ground; } }
 		
-		public GroundController( BetterCharacterController controller, LayerMask environmentLayer )
+		public GroundController( LocomotionController controller, LayerMask environmentLayer )
 		{
 			this.controller = controller;
 			this.environmentLayer = environmentLayer;
