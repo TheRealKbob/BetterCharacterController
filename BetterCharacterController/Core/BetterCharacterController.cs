@@ -8,8 +8,6 @@ namespace BetterCharacterControllerFramework
 	{
 
 		#region Editor Properties
-		public Vector3 DebugMove = Vector3.zero;
-
 		public float Radius = 0.5f;
 		public LayerMask EnvironmentLayer = 0;
 
@@ -36,6 +34,8 @@ namespace BetterCharacterControllerFramework
 		public float VerticalInput{ get{ return inputVector.y; } }
 
 		public bool EnableGroundClamping = false;
+
+		public float GroundAngle = 0;
 
 		void Start()
 		{

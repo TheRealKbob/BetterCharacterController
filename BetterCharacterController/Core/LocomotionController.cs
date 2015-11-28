@@ -33,6 +33,7 @@ namespace BetterCharacterControllerFramework
 		#endregion
 
 		private bool isClamping = false;
+		public bool ClampingEnabled{ get{ return controller.EnableGroundClamping; } }
 
 		private const int MAX_PUSHBACK_DEPTH = 2;
 
@@ -84,7 +85,6 @@ namespace BetterCharacterControllerFramework
 		public void ApplyFriction()
 		{
 			moveForce = new Vector3( moveForce.x * controller.Friction, moveForce.y, moveForce.z * controller.Friction );
-			Debug.Log("Velocity: " + Velocity);
 		}
 
 		private Vector3 addHorizontalForce( float x, float z )
@@ -158,12 +158,21 @@ namespace BetterCharacterControllerFramework
 			bool contact = false;
 			foreach( Collider c in Physics.OverlapSphere( transform.position, controller.Radius, controller.EnvironmentLayer ) )
 			{
-				if( c.isTrigger || c.gameObject == groundController.CurrentGround.GroundObject )
-					continue;
-				
+				if( c.isTrigger ) continue;
+
 				contact = true;
-				Vector3 contactPoint = c.ClosestPointOnBounds( transform.position );
-				DebugDraw.DrawMarker( contactPoint, 0.25f, Color.cyan, 0.1f, false );
+				Vector3 contactPoint = Vector3.zero;
+				if (c is BoxCollider)
+				{
+					contactPoint = ClosestPointOn((BoxCollider)c, transform.position);
+				}
+				else if (c is SphereCollider)
+				{
+					contactPoint = ClosestPointOn((SphereCollider)c, transform.position);
+				}
+				DebugDraw.DrawMarker( contactPoint, 0.5f, Color.cyan, 0.1f, false );
+				if( c.gameObject == clampedTo )
+					controller.GroundAngle = Mathf.Abs( 90 - Vector3.Angle( transform.up, contactPoint ) );
 				Vector3 v = transform.position - contactPoint;
 				transform.position += Vector3.ClampMagnitude( v, Mathf.Clamp( controller.Radius - v.magnitude, 0, controller.Radius ) );
 			}
@@ -172,6 +181,56 @@ namespace BetterCharacterControllerFramework
 			{
 				recursivePushback(depth + 1, maxDepth);
 			}
+		}
+
+		//TEMP
+		Vector3 ClosestPointOn(BoxCollider collider, Vector3 to)
+		{
+			if (collider.transform.rotation == Quaternion.identity)
+			{
+				return collider.ClosestPointOnBounds(to);
+			}
+			
+			return closestPointOnOBB(collider, to);
+		}
+		
+		Vector3 ClosestPointOn(SphereCollider collider, Vector3 to)
+		{
+			Vector3 p;
+			
+			p = to - collider.transform.position;
+			p.Normalize();
+			
+			p *= collider.radius * collider.transform.localScale.x;
+			p += collider.transform.position;
+			
+			return p;
+		}
+		
+		Vector3 closestPointOnOBB(BoxCollider collider, Vector3 to)
+		{
+			// Cache the collider transform
+			var ct = collider.transform;
+			
+			// Firstly, transform the point into the space of the collider
+			var local = ct.InverseTransformPoint(to);
+			
+			// Now, shift it to be in the center of the box
+			local -= collider.center;
+			
+			// Inverse scale it by the colliders scale
+			var localNorm =
+				new Vector3(
+					Mathf.Clamp(local.x, -collider.size.x * 0.5f, collider.size.x * 0.5f),
+					Mathf.Clamp(local.y, -collider.size.y * 0.5f, collider.size.y * 0.5f),
+					Mathf.Clamp(local.z, -collider.size.z * 0.5f, collider.size.z * 0.5f)
+					);
+			
+			// Now we undo our transformations
+			localNorm += collider.center;
+			
+			// Return resulting point
+			return ct.TransformPoint(localNorm);
 		}
 
 	}

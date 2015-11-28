@@ -24,7 +24,7 @@ namespace BetterCharacterControllerFramework
 			Probe();
 			if( ground != null )
 			{			
-				float tolerance = ( isClamping ) ? 0.08f : 0;
+				float tolerance = ( isClamping && controller.ClampingEnabled ) ? 0.3f : 0;
 				if( Vector3.Distance( controller.Position, ground.Point ) <= controller.Radius + tolerance )
 				{
 					return true;
@@ -48,7 +48,7 @@ namespace BetterCharacterControllerFramework
 			
 			DebugDraw.DrawMarker( o, 0.25f, Color.green, 0, false );
 			
-			float smallerRadius = controller.Radius * 0.8f;
+			float smallerRadius = controller.Radius * 0.98f;
 			
 			RaycastHit hit;
 			if( Physics.SphereCast( o, smallerRadius, -controller.Up, out hit, Mathf.Infinity, environmentLayer ) )

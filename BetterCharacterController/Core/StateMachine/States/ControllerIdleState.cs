@@ -28,7 +28,10 @@ namespace BetterCharacterControllerFramework
 			else if( !controller.Locomotion.MaintainingGround() )
 				stateMachine.CurrentState = ControllerStateType.FALLING;
 			else
-				controller.Locomotion.ApplyFriction();
+			{
+				if( controller.Locomotion.Velocity.magnitude > 0 )
+					controller.Locomotion.ApplyFriction();
+			}
 		}
 		
 		public override void ExitState()

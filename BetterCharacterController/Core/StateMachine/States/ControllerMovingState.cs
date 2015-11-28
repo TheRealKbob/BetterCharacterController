@@ -33,7 +33,14 @@ namespace BetterCharacterControllerFramework
 				stateMachine.CurrentState = ControllerStateType.IDLE;
 				return;
 			}
-			controller.Locomotion.ApplyForce( new Vector3( ih.x, iv, ih.y ) );
+
+			if( iv > 0 )
+			{
+				stateMachine.CurrentState = ControllerStateType.JUMPING;
+				return;
+			}
+
+			controller.Locomotion.ApplyForce( new Vector3( ih.x, 0, ih.y ) );
 		}
 		
 		public override void ExitState()
