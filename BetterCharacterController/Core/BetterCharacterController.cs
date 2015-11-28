@@ -30,7 +30,7 @@ namespace BetterCharacterControllerFramework
 		public float JumpHeight{ get{ return jumpHeight; } }
 		
 		[SerializeField]
-		private LayerMask environmentLayer;
+		private LayerMask environmentLayer = 0;
 		public LayerMask EnvironmentLayer{ get { return environmentLayer; } }
 		
 		public float Radius = 0.5f;
@@ -52,6 +52,7 @@ namespace BetterCharacterControllerFramework
 
 		private bool isClamping = false;
 		private GameObject clampedTo = null;
+
 
 		void Awake ()
 		{
@@ -134,6 +135,7 @@ namespace BetterCharacterControllerFramework
 			}		
 		
 			return maintainingGround;
+
 		}
 
 		public bool AcquiringGround()

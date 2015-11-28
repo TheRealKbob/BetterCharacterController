@@ -5,14 +5,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterCharacterController",
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug Mac|Any CPU = Debug Mac|Any CPU
+		Debug PC|Any CPU = Debug PC|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FFB093B6-73EA-4086-A41B-460D83CF50A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFB093B6-73EA-4086-A41B-460D83CF50A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFB093B6-73EA-4086-A41B-460D83CF50A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFB093B6-73EA-4086-A41B-460D83CF50A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB093B6-73EA-4086-A41B-460D83CF50A7}.Debug Mac|Any CPU.ActiveCfg = Debug Mac|Any CPU
+		{FFB093B6-73EA-4086-A41B-460D83CF50A7}.Debug Mac|Any CPU.Build.0 = Debug Mac|Any CPU
+		{FFB093B6-73EA-4086-A41B-460D83CF50A7}.Debug PC|Any CPU.ActiveCfg = Debug PC|Any CPU
+		{FFB093B6-73EA-4086-A41B-460D83CF50A7}.Debug PC|Any CPU.Build.0 = Debug PC|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = BetterCharacterController\BetterCharacterController.csproj
