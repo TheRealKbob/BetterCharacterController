@@ -10,7 +10,7 @@ namespace BetterCharacterControllerFramework
 		private BetterCharacterController controller;
 		private GroundController groundController;
 
-		public Transform transform;
+		private Transform transform;
 
 		private Vector3 moveForce = Vector3.zero;
 
@@ -30,6 +30,7 @@ namespace BetterCharacterControllerFramework
 		public LayerMask EnvironmentLayer{ get{ return controller.EnvironmentLayer; } }
 		public Vector3 Position{ get{ return transform.position; } }
 		public Vector3 Up{ get{ return transform.up; } }
+		public float SlopeLimit{ get{ return controller.SlopeLimit; } }
 		#endregion
 
 		private bool isClamping = false;

@@ -56,8 +56,13 @@ namespace BetterCharacterControllerFramework
 			if( Physics.SphereCast( o, smallerRadius, -controller.Up, out hit, Mathf.Infinity, environmentLayer ) )
 			{
 				Vector3 p = MathUtils.MoveTowards( hit.point, controller.Position, controller.Radius );
-				float groundAngle = MathUtils.AngleInPlane(controller.transform, hit.point, controller.Up);
-				ground = new Ground( hit.point, p, hit.normal, hit.distance, groundAngle, hit.collider.gameObject );
+				float groundAngle = Vector3.Angle( hit.normal, Vector3.up );
+
+				Vector3 r = Vector3.Cross(hit.normal, -controller.Up);
+				Vector3 v = Vector3.Cross(r, hit.normal);
+
+				Debug.DrawRay( hit.point, v, Color.red );
+				ground = new Ground( hit.point, p, Vector3.right + hit.normal, hit.distance, groundAngle, hit.collider.gameObject );
 				DebugDraw.DrawMarker( hit.point, 0.25f, Color.red, 0, false );
 				DebugDraw.DrawMarker( p, 0.25f, Color.blue, 0, false );
 			}

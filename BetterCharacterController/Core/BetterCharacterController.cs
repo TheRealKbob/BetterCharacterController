@@ -20,9 +20,14 @@ namespace BetterCharacterControllerFramework
 		public float Speed = 4f;
 		public float Acceleration = 30f;
 		public float Decceleration = 100f;
-		public float Friction{ get{ return ( 1 - (Decceleration / 100) ); } }
 		public float JumpHeight = 3;
+
+		public float SlopeLimit = 45.0f;
+
+		public bool MovementWhileAirborne = true;
 		#endregion
+
+		public float Friction{ get{ return ( 1 - (Decceleration / 100) ); } }
 
 		private ControllerStateMachine stateMachine;
 		private LocomotionController locomotion;
