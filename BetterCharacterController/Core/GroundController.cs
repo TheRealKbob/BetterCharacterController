@@ -12,7 +12,9 @@ namespace BetterCharacterControllerFramework
 		
 		private Ground ground;
 		public Ground CurrentGround{ get{ return ground; } }
-		
+
+		private float probeHeight = 0;
+
 		public GroundController( LocomotionController controller, LayerMask environmentLayer )
 		{
 			this.controller = controller;
@@ -43,7 +45,7 @@ namespace BetterCharacterControllerFramework
 			
 			Clear();
 			
-			float probeHeight = controller.Position.y + ( controller.Radius * 2 ) + ( Mathf.Abs(controller.Velocity.y) * Time.deltaTime );
+			probeHeight = Mathf.Lerp( probeHeight, controller.Position.y + ( controller.Radius * 2 ) + ( Mathf.Abs(controller.Velocity.y) * (Time.deltaTime * 10) ), Time.deltaTime ); 
 			Vector3 o = new Vector3( controller.Position.x, probeHeight, controller.Position.z );
 			
 			DebugDraw.DrawMarker( o, 0.25f, Color.green, 0, false );
@@ -54,8 +56,8 @@ namespace BetterCharacterControllerFramework
 			if( Physics.SphereCast( o, smallerRadius, -controller.Up, out hit, Mathf.Infinity, environmentLayer ) )
 			{
 				Vector3 p = MathUtils.MoveTowards( hit.point, controller.Position, controller.Radius );
-								
-				ground = new Ground( hit.point, p, hit.normal, hit.distance, hit.collider.gameObject );
+				float groundAngle = MathUtils.AngleInPlane(controller.transform, hit.point, controller.Up);
+				ground = new Ground( hit.point, p, hit.normal, hit.distance, groundAngle, hit.collider.gameObject );
 				DebugDraw.DrawMarker( hit.point, 0.25f, Color.red, 0, false );
 				DebugDraw.DrawMarker( p, 0.25f, Color.blue, 0, false );
 			}
@@ -77,7 +79,10 @@ namespace BetterCharacterControllerFramework
 		
 		private float distance;
 		public float Distance{ get{ return distance; } }
-		
+
+		private float angle;
+		public float Angle{ get{ return angle; } }
+
 		private GameObject groundObject;
 		public GameObject GroundObject{ get{ return groundObject; } }
 		
@@ -86,12 +91,13 @@ namespace BetterCharacterControllerFramework
 			return Vector3.Distance( position, controllerPoint );
 		}
 		
-		public Ground( Vector3 point, Vector3 controllerPoint, Vector3 normal, float distance, GameObject groundObject )
+		public Ground( Vector3 point, Vector3 controllerPoint, Vector3 normal, float distance, float angle, GameObject groundObject )
 		{
 			this.point = point;
 			this.controllerPoint = controllerPoint;
 			this.normal = normal;
 			this.distance = distance;
+			this.angle = angle;
 			this.groundObject = groundObject;
 		}
 	}

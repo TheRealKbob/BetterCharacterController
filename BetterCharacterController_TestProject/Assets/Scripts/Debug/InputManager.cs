@@ -34,5 +34,10 @@ public class InputManager : MonoBehaviour {
 		if( Input.GetKeyUp( KeyCode.Space ) )
 			controller.Jump();
 
+		if( Input.GetKeyDown( KeyCode.LeftShift ) )
+			controller.Speed = 15;
+		else if( Input.GetKeyUp( KeyCode.LeftShift ) )
+			controller.Speed = 4;
+
 	}
 }

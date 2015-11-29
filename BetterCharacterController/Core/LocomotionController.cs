@@ -10,7 +10,7 @@ namespace BetterCharacterControllerFramework
 		private BetterCharacterController controller;
 		private GroundController groundController;
 
-		private Transform transform;
+		public Transform transform;
 
 		private Vector3 moveForce = Vector3.zero;
 
@@ -57,6 +57,8 @@ namespace BetterCharacterControllerFramework
 				case 2:
 				recursivePushback( 0, MAX_PUSHBACK_DEPTH );
 				groundController.Probe();
+				if( groundController.IsGrounded( isClamping ) )
+					controller.GroundAngle = groundController.CurrentGround.Angle;
 				velocity = ( transform.position - lastPosition ) / Time.deltaTime;
 				lastPosition = transform.position;
 				if( controller.EnableGroundClamping && clampedTo != null )
@@ -171,8 +173,6 @@ namespace BetterCharacterControllerFramework
 					contactPoint = ClosestPointOn((SphereCollider)c, transform.position);
 				}
 				DebugDraw.DrawMarker( contactPoint, 0.5f, Color.cyan, 0.1f, false );
-				if( c.gameObject == clampedTo )
-					controller.GroundAngle = Mathf.Abs( 90 - Vector3.Angle( transform.up, contactPoint ) );
 				Vector3 v = transform.position - contactPoint;
 				transform.position += Vector3.ClampMagnitude( v, Mathf.Clamp( controller.Radius - v.magnitude, 0, controller.Radius ) );
 			}

@@ -1,8 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{C3187491-6349-885B-AA0F-D4FB1C5B332A}") = "BetterCharacterController_TestProject", "Assembly-CSharp-firstpass.csproj", "{9C5CAC25-E7BD-DB5E-8B03-6928D19E3052}"
-EndProject
 Project("{C3187491-6349-885B-AA0F-D4FB1C5B332A}") = "BetterCharacterController_TestProject", "Assembly-CSharp.csproj", "{0D47EB67-0FE6-5108-9D01-D41DB67CDD52}"
 EndProject
 Project("{C3187491-6349-885B-AA0F-D4FB1C5B332A}") = "BetterCharacterController_TestProject", "Assembly-CSharp-Editor.csproj", "{9974158A-4682-648A-4887-53A9DD76B8C5}"
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9C5CAC25-E7BD-DB5E-8B03-6928D19E3052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C5CAC25-E7BD-DB5E-8B03-6928D19E3052}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C5CAC25-E7BD-DB5E-8B03-6928D19E3052}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C5CAC25-E7BD-DB5E-8B03-6928D19E3052}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D47EB67-0FE6-5108-9D01-D41DB67CDD52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D47EB67-0FE6-5108-9D01-D41DB67CDD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D47EB67-0FE6-5108-9D01-D41DB67CDD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +23,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-														GlobalSection(MonoDevelopProperties) = preSolution
+															GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
