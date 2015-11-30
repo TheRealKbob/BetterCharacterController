@@ -21,7 +21,7 @@
     <WarningLevel>4</WarningLevel>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp  /Users/acapobianchi/Documents/Work/Unity/Libraries/BetterCharacterController/BetterCharacterController/bin/Debug/BetterCharacterController.dll /Users/acapobianchi/Documents/Work/Unity/BetterCharacterController_TestEnv/Assets/Plugins" />
+        <Command type="AfterBuild" command="cp  /Users/acapobianchi/Documents/Work/Unity/Libraries/BetterCharacterController/BetterCharacterController/bin/Debug/BetterCharacterController.dll /Users/acapobianchi/Documents/Work/Unity/Libraries/BetterCharacterController/BetterCharacterController_TestProject/Assets/Plugins" />
       </CustomCommands>
     </CustomCommands>
     <ConsolePause>False</ConsolePause>

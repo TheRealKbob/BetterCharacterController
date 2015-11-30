@@ -11,7 +11,8 @@ namespace BetterCharacterControllerFramework
 		private GroundController groundController;
 
 		private Transform transform;
-
+		private Vector3 initialPosition;
+		
 		private Vector3 moveForce = Vector3.zero;
 
 		#region Clamping Properties
@@ -51,7 +52,8 @@ namespace BetterCharacterControllerFramework
 			{
 				case 1:
 				updateGroundClamping();
-				groundController.Probe();
+				initialPosition = Position;
+				//groundController.Probe();
 				transform.position += moveForce * Time.deltaTime;
 				break;
 
@@ -64,6 +66,7 @@ namespace BetterCharacterControllerFramework
 				lastPosition = transform.position;
 				if( controller.EnableGroundClamping && clampedTo != null )
 					lastGroundPosition = clampedTo.transform.position;
+				//limitSlope();
 				break;
 
 				default:
@@ -144,7 +147,7 @@ namespace BetterCharacterControllerFramework
 			
 			return acquiredGround;
 		}
-
+		
 		private void updateGroundClamping()
 		{
 			if( !controller.EnableGroundClamping || clampedTo == null ) return;
@@ -154,6 +157,34 @@ namespace BetterCharacterControllerFramework
 		private void clampToGround()
 		{
 			transform.position = new Vector3( transform.position.x, groundController.CurrentGround.ControllerPoint.y, transform.position.z );
+		}
+		
+		private void limitSlope()
+		{
+			float a = controller.GroundAngle;
+			if( a > SlopeLimit )
+			{
+				Vector3 absoluteDirection = MathUtils.ProjectVectorOnPlane( initialPosition, Position - initialPosition );
+				
+				Vector3 r = Vector3.Cross(groundController.CurrentGround.Normal, -Up);
+				Vector3 v = Vector3.Cross(r, groundController.CurrentGround.Normal);
+				
+				float angle = Vector3.Angle( absoluteDirection, v );
+				Debug.Log("slopelimit angle: " + angle);
+				/*if( angle <= 90 )
+					return;*/
+					
+				Vector3 resolvePosition = MathUtils.ProjectPointOnLine( initialPosition, r, Position );
+				Vector3 direction = MathUtils.ProjectVectorOnPlane( groundController.CurrentGround.Normal, resolvePosition - Position );
+				
+				Debug.Log("slopelimit direction: " + direction);
+				
+				DebugDraw.DrawMarker( resolvePosition, 0.4f, Color.magenta, 0, false );
+				Debug.DrawRay( Position, direction, Color.magenta );
+				
+				transform.position += direction;
+				
+			}
 		}
 
 		private void recursivePushback ( int depth, int maxDepth )

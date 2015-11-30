@@ -29,6 +29,18 @@ namespace BetterCharacterControllerFramework
 			return v - (Vector3.Dot(v, onto) / Vector3.Dot(onto, onto)) * onto;
 		}
 		
+		public static Vector3 ProjectVectorOnPlane(Vector3 planeNormal, Vector3 vector)
+		{
+			return vector - (Vector3.Dot(vector, planeNormal) * planeNormal);
+		}
+		
+		public static Vector3 ProjectPointOnLine(Vector3 linePoint, Vector3 lineVec, Vector3 point)
+		{
+			Vector3 linePointToPoint = point - linePoint;	
+			float t = Vector3.Dot(linePointToPoint, lineVec);
+			return linePoint + lineVec * t;
+		}
+		
 	}
 
 }
