@@ -21,7 +21,14 @@ namespace BetterCharacterControllerFramework
 		#endregion
 
 		#region Physics Simulation
-		public bool IsGrounded{ get{ return controller.isGrounded; } }
+		private bool grounded = false;
+		public bool IsGrounded
+		{ 
+			get
+			{ 
+				return grounded;
+			} 
+		}
 		public Vector3 Velocity{ get{ return controller.velocity; } }
 		#endregion
 
@@ -38,16 +45,16 @@ namespace BetterCharacterControllerFramework
 
 		public void UpdatePhase()
 		{
-			addGravity();
 			moveVector = transform.TransformDirection( moveVector );
-			controller.Move( MoveForce );
+			addGravity();
+			grounded = ( controller.Move( MoveForce ) & CollisionFlags.Below ) != 0;
 		}
 
 		#region Movement Functions
 
 		private void addGravity ()
 		{
-			moveVector.y -= 9.8f * Time.deltaTime;
+			moveVector.y -= 20f * Time.deltaTime;
 		}
 		
 		public void AddForce ( Vector3 force )
