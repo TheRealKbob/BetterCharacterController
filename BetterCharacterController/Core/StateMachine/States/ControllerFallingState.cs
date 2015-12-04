@@ -7,7 +7,7 @@ namespace BetterCharacterControllerFramework
 	public class ControllerFallingState : ControllerState
 	{
 	
-		public ControllerFallingState( ControllerStateMachine stateMachine, BetterCharacterController controller ) : base( stateMachine, controller )
+		public ControllerFallingState( ControllerStateMachine stateMachine, CharacterMotor controller ) : base( stateMachine, controller )
 		{
 
 		}
@@ -15,18 +15,22 @@ namespace BetterCharacterControllerFramework
 		public override void EnterState()
 		{
 			Debug.Log("Enter Falling");
-			controller.EnableGroundClamping = false;
+			//controller.EnableGroundClamping = false;
 		}
 		
 		public override void OnUpdate()
 		{
-			if( controller.Locomotion.AcquiringGround() )
+			if( controller.Locomotion.IsGrounded )
 			{
 				stateMachine.CurrentState = ControllerStateType.IDLE;
 				return;
 			}
-			Vector2 ih = ( controller.MovementWhileAirborne ) ? controller.HorizontalInput : Vector2.zero;
-			controller.Locomotion.ApplyForce( new Vector3( ih.x, -1, ih.y ) );
+			
+			if( controller.MovementWhileAirborne )
+			{
+				Vector2 ih = controller.HorizontalInput;
+				controller.Locomotion.AddHorizontalForce( new Vector2( ih.x, ih.y ) );
+			}
 		}
 		
 		public override void ExitState()

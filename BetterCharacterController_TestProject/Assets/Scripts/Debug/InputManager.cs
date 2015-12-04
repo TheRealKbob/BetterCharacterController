@@ -4,13 +4,13 @@ using BetterCharacterControllerFramework;
 
 public class InputManager : MonoBehaviour {
 
-	private BetterCharacterController controller;
+	private CharacterMotor controller;
 
 	private Vector2 previousInput = Vector2.zero;
 
 	// Use this for initialization
 	void Start () {
-		controller = GetComponent<BetterCharacterController>();
+		controller = GetComponent<CharacterMotor>();
 	}
 	
 	// Update is called once per frame
@@ -31,13 +31,13 @@ public class InputManager : MonoBehaviour {
 			previousInput = Vector2.zero;
 		}
 
-		if( Input.GetKeyUp( KeyCode.Space ) )
+		if( Input.GetKeyDown( KeyCode.Space ) )
 			controller.Jump();
 
 		if( Input.GetKeyDown( KeyCode.LeftShift ) )
 			controller.Speed = 15;
 		else if( Input.GetKeyUp( KeyCode.LeftShift ) )
-			controller.Speed = 4;
+			controller.Speed = 8;
 
 	}
 }

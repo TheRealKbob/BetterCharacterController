@@ -18,7 +18,7 @@ namespace BetterCharacterControllerFramework
 	public class ControllerStateMachine
 	{
 		
-		private BetterCharacterController controller;
+		private CharacterMotor controller;
 		
 		private ControllerState state = new ControllerState(null, null);
 		
@@ -39,7 +39,7 @@ namespace BetterCharacterControllerFramework
 			}
 		}
 		
-		public ControllerStateMachine( BetterCharacterController controller )
+		public ControllerStateMachine( CharacterMotor controller )
 		{
 		
 			this.controller = controller;
@@ -73,11 +73,11 @@ namespace BetterCharacterControllerFramework
 	public class ControllerState
 	{
 		protected ControllerStateMachine stateMachine;
-		protected BetterCharacterController controller;
+		protected CharacterMotor controller;
 
 		public ControllerStateType ID;
 	
-		public ControllerState(ControllerStateMachine stateMachine, BetterCharacterController controller)
+		public ControllerState(ControllerStateMachine stateMachine, CharacterMotor controller)
 		{
 			this.stateMachine = stateMachine;
 			this.controller = controller;
