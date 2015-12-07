@@ -1,18 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug PC" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="e:\Unity Projects\BetterCharacterController\BetterCharacterController\Core\GroundController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug Mac" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../BetterCharacterController/Core/CharacterMotor.cs">
     <Files>
-      <File FileName="..\BetterCharacterController\Core\BetterCharacterController.cs" Line="38" Column="27" />
-      <File FileName="Assets\Scripts\Debug\InputManager.cs" Line="17" Column="7" />
-      <File FileName="..\BetterCharacterController\TempController.cs" Line="161" Column="40" />
-      <File FileName="..\BetterCharacterController\Core\LocomotionController.cs" Line="13" Column="9" />
-      <File FileName="e:\Unity Projects\BetterCharacterController\BetterCharacterController\Core\StateMachine\States\ControllerIdleState.cs" Line="33" Column="6" />
-      <File FileName="e:\Unity Projects\BetterCharacterController\BetterCharacterController\Core\StateMachine\States\ControllerFallingState.cs" Line="28" Column="4" />
-      <File FileName="e:\Unity Projects\BetterCharacterController\BetterCharacterController\Core\StateMachine\States\ControllerJumpingState.cs" Line="29" Column="55" />
-      <File FileName="..\BetterCharacterController\Core\StateMachine\States\ControllerMovingState.cs" Line="43" Column="69" />
-      <File FileName="..\BetterCharacterController\Core\StateMachine\ControllerStateMachine.cs" Line="23" Column="65" />
-      <File FileName="e:\Unity Projects\BetterCharacterController\BetterCharacterController\Core\GroundController.cs" Line="57" Column="94" />
-      <File FileName="..\BetterCharacterController\Core\Utilities\MathUtils.cs" Line="22" Column="27" />
+      <File FileName="../BetterCharacterController/Core/CharacterMotor.cs" Line="55" Column="99" />
+      <File FileName="../BetterCharacterController/Core/LocomotionController.cs" Line="98" Column="4" />
+      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerIdleState.cs" Line="22" Column="9" />
+      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerMovingState.cs" Line="20" Column="41" />
+      <File FileName="../../../../../../Desktop/Temp.cs" Line="150" Column="2" />
+      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerJumpingState.cs" Line="23" Column="40" />
+      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerFallingState.cs" Line="22" Column="40" />
+      <File FileName="../BetterCharacterController/Core/GroundController.cs" Line="37" Column="18" />
+      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerSlideState.cs" Line="17" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -7,14 +7,12 @@ namespace BetterCharacterControllerFramework
 	public class ControllerMovingState : ControllerState
 	{
 	
-		public ControllerMovingState( ControllerStateMachine stateMachine, CharacterMotor controller ) : base( stateMachine, controller )
-		{
-		
-		}
+		public ControllerMovingState( ControllerStateMachine stateMachine, CharacterMotor controller ) : base( stateMachine, controller ){}
 
 		public override void EnterState()
 		{
 			Debug.Log("Enter Moving State");
+			controller.Locomotion.ClampingEnabled = true;
 		}
 		
 		public override void OnUpdate()

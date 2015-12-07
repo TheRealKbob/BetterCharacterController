@@ -67,6 +67,7 @@
     <Compile Include="Core\Utilities\MathUtils.cs" />
     <Compile Include="Core\LocomotionController.cs" />
     <Compile Include="Core\CharacterMotor.cs" />
+    <Compile Include="Core\StateMachine\States\ControllerSlideState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
