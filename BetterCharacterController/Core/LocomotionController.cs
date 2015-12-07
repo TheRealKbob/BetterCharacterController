@@ -9,7 +9,6 @@ namespace BetterCharacterControllerFramework
 
 		private CharacterMotor motor;
 		private CharacterController controller;
-		private GroundController groundController;
 		
 		private Transform transform;
 		
@@ -46,6 +45,8 @@ namespace BetterCharacterControllerFramework
 				return grounded;
 			} 
 		}
+		public float GroundAngle;
+		private bool sliding = false;
 		public Vector3 Velocity{ get{ return controller.velocity; } }
 		#endregion
 		
@@ -58,22 +59,29 @@ namespace BetterCharacterControllerFramework
 		public LocomotionController( CharacterMotor motor )
 		{
 			this.motor = motor;
-			groundController = new GroundController( this, motor.EnvironmentLayer );
 			transform = motor.gameObject.transform;
 			intializeController();
 		}
 
-		public void UpdatePhase()
+		public void UpdatePhase( int phase )
 		{
-			updateGroundClampPosition();
-			groundController.Probe();
-			addGravity();
-			moveVector = transform.TransformDirection( moveVector );
-			grounded = ( controller.Move( MoveForce ) & CollisionFlags.Below ) != 0;
-			if( IsClamping )
-				lastGroundPosition = clampedTo.position;
-			else
-				lastGroundPosition = Vector3.zero;
+			switch( phase )
+			{
+				case 0:
+					updateGroundClampPosition();
+					checkForSliding();
+					addGravity();
+				break;
+				
+				case 1:
+					moveVector = transform.TransformDirection( moveVector );
+					grounded = ( controller.Move( MoveForce ) & CollisionFlags.Below ) != 0;
+					if( IsClamping )
+						lastGroundPosition = clampedTo.position;
+					else
+						lastGroundPosition = Vector3.zero;
+				break;
+			}
 		}
 
 		#region Movement Functions
@@ -118,6 +126,11 @@ namespace BetterCharacterControllerFramework
 			
 			transform.position += ( clampedTo.position - lastGroundPosition );
 			
+		}
+
+		private void checkForSliding ()
+		{
+			sliding = false;
 		}
 	}
 

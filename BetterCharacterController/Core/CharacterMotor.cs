@@ -33,8 +33,9 @@ namespace BetterCharacterControllerFramework
 
 		void FixedUpdate()
 		{
-			locomotion.UpdatePhase();
+			locomotion.UpdatePhase( 0 );
 			if( PlayerInputEnabled ) stateMachine.DoUpdate();
+			locomotion.UpdatePhase( 1 );
 			inputVector.y = 0;
 		}
 		
@@ -53,6 +54,12 @@ namespace BetterCharacterControllerFramework
 		void OnControllerColliderHit (ControllerColliderHit hit) 
 		{
 			locomotion.ClampedTo = hit.collider.gameObject.transform;
+			
+			RaycastHit rHit;
+			if( Physics.Raycast(hit.point + Vector3.up, -Vector3.up, out rHit) )
+			{
+				locomotion.GroundAngle = Vector3.Angle(hit.normal, Vector3.up);
+			}
 		}	
 	}
 
