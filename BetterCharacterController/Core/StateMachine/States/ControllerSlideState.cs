@@ -12,14 +12,18 @@ namespace BetterCharacterControllerFramework
 		public override void EnterState()
 		{
 			Debug.Log("Enter Slide State");
-			//controller.EnableGroundClamping = false;
-			controller.Locomotion.ClampingEnabled = false;
+			controller.Locomotion.AddHorizontalForce( new Vector2( 0, 0 ) );
 			controller.Locomotion.AddVerticalForce( 0 );
+			controller.PlayerControl = false;
 		}
 		
 		public override void OnUpdate()
 		{
-			
+			if( !controller.Locomotion.Sliding )
+			{
+				stateMachine.CurrentState = ControllerStateType.IDLE;
+				return;
+			}
 		}
 		
 		public override void ExitState()

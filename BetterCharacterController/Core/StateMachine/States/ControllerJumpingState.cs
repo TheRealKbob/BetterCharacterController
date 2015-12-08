@@ -19,13 +19,6 @@ namespace BetterCharacterControllerFramework
 		
 		public override void OnUpdate()
 		{
-			
-			if( controller.Locomotion.IsGrounded )
-			{
-				stateMachine.CurrentState = ControllerStateType.IDLE;
-				return;
-			}
-			
 			if( controller.Locomotion.Velocity.y <= 0 )
 			{
 				stateMachine.CurrentState = ControllerStateType.FALLING;

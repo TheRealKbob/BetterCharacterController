@@ -21,6 +21,13 @@ namespace BetterCharacterControllerFramework
 		public bool SlideDownSlopes = true;
 		#endregion
 		
+		private bool playerControl = true;
+		public bool PlayerControl
+		{ 
+			set{ playerControl = value; } 
+			get{ return playerControl; } 
+		}
+		
 		private Vector3 inputVector = Vector3.zero;
 		public Vector2 HorizontalInput{ get{ return new Vector2( inputVector.x, inputVector.z ); } }
 		public float VerticalInput{ get{ return inputVector.y; } }
@@ -33,33 +40,29 @@ namespace BetterCharacterControllerFramework
 
 		void FixedUpdate()
 		{
-			locomotion.UpdatePhase( 0 );
 			if( PlayerInputEnabled ) stateMachine.DoUpdate();
-			locomotion.UpdatePhase( 1 );
+			locomotion.UpdatePhase();
+			//locomotion.UpdatePhase( 1 );
 			inputVector.y = 0;
 		}
 		
 		public void Move( float x, float z ){ Move( new Vector2(x, z) ); }
 		public void Move( Vector2 force )
 		{
+			//if( !PlayerControl || !PlayerInputEnabled ) return;
 			inputVector.x = force.x;
 			inputVector.z = force.y;
 		}
 
 		public void Jump()
 		{
+			//if( !PlayerControl || !PlayerInputEnabled ) return;
 			inputVector.y = 1;
 		}
 		
 		void OnControllerColliderHit (ControllerColliderHit hit) 
-		{
-			locomotion.ClampedTo = hit.collider.gameObject.transform;
-			
-			RaycastHit rHit;
-			if( Physics.Raycast(hit.point + Vector3.up, -Vector3.up, out rHit) )
-			{
-				locomotion.GroundAngle = Vector3.Angle(hit.normal, Vector3.up);
-			}
+		{			
+			locomotion.OnColliderHit( hit );
 		}	
 	}
 

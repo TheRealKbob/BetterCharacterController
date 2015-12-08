@@ -19,15 +19,18 @@ namespace BetterCharacterControllerFramework
 		
 		public override void OnUpdate()
 		{
+			Vector2 ih = controller.HorizontalInput;
 			if( controller.Locomotion.IsGrounded )
 			{
-				stateMachine.CurrentState = ControllerStateType.IDLE;
+				if( ih == Vector2.zero )
+					stateMachine.CurrentState = ControllerStateType.IDLE;
+				else
+					stateMachine.CurrentState = ControllerStateType.MOVING;
 				return;
 			}
 			
 			if( controller.MovementWhileAirborne )
 			{
-				Vector2 ih = controller.HorizontalInput;
 				controller.Locomotion.AddHorizontalForce( new Vector2( ih.x, ih.y ) );
 			}
 		}

@@ -11,7 +11,8 @@ namespace BetterCharacterControllerFramework
 		IDLE,
 		MOVING,
 		FALLING,
-		JUMPING		
+		JUMPING,
+		SLIDING	
 	}
 	
 	
@@ -48,6 +49,7 @@ namespace BetterCharacterControllerFramework
 			addState( ControllerStateType.MOVING, new ControllerMovingState( this, controller ) );
 			addState( ControllerStateType.FALLING, new ControllerFallingState( this, controller ) );
 			addState( ControllerStateType.JUMPING, new ControllerJumpingState( this, controller ) );
+			addState( ControllerStateType.SLIDING, new ControllerSlideState( this, controller ) );
 			
 			CurrentState = ControllerStateType.IDLE;
 		}

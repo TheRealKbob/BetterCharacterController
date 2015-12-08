@@ -12,6 +12,7 @@ namespace BetterCharacterControllerFramework
 		public override void EnterState()
 		{
 			Debug.Log("Enter Idle State");
+			controller.PlayerControl = controller.PlayerInputEnabled;
 			controller.Locomotion.ClampingEnabled = true;
 			controller.Locomotion.AddHorizontalForce( new Vector2( 0, 0 ) );
 		}
@@ -22,6 +23,12 @@ namespace BetterCharacterControllerFramework
 			if( !controller.Locomotion.IsGrounded )
 			{
 				stateMachine.CurrentState = ControllerStateType.FALLING;
+				return;
+			}
+			
+			if( controller.Locomotion.Sliding )
+			{
+				stateMachine.CurrentState = ControllerStateType.SLIDING;
 				return;
 			}
 		

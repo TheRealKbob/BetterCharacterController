@@ -17,6 +17,17 @@ namespace BetterCharacterControllerFramework
 		private Vector3 moveVector = Vector3.zero;
 		public Vector3 MoveForce{ get{ return moveVector * Time.deltaTime; } }
 
+		private ControllerColliderHit groundHit;
+		public ControllerColliderHit GroundHit
+		{
+			set
+			{
+				if( groundHit == value ) return;
+				groundHit = value;
+				clampedTo = value.gameObject.transform;
+			}
+		}
+
 		#region Clamping Properties
 		public bool ClampingEnabled = false;
 		private Transform clampedTo = null;
@@ -47,6 +58,7 @@ namespace BetterCharacterControllerFramework
 		}
 		public float GroundAngle;
 		private bool sliding = false;
+		public bool Sliding{ get{ return sliding; } }
 		public Vector3 Velocity{ get{ return controller.velocity; } }
 		#endregion
 		
@@ -63,27 +75,32 @@ namespace BetterCharacterControllerFramework
 			intializeController();
 		}
 
-		public void UpdatePhase( int phase )
+		public void UpdatePhase()
 		{
-			switch( phase )
-			{
-				case 0:
-					updateGroundClampPosition();
-					checkForSliding();
-					addGravity();
-				break;
-				
-				case 1:
-					moveVector = transform.TransformDirection( moveVector );
-					grounded = ( controller.Move( MoveForce ) & CollisionFlags.Below ) != 0;
-					if( IsClamping )
-						lastGroundPosition = clampedTo.position;
-					else
-						lastGroundPosition = Vector3.zero;
-				break;
-			}
+		
+			updateGroundClampPosition();					
+			addGravity();
+			moveVector = transform.TransformDirection( moveVector );
+			grounded = ( controller.Move( MoveForce ) & CollisionFlags.Below ) != 0;
+			if( IsClamping )
+				lastGroundPosition = clampedTo.position;
+			else
+				lastGroundPosition = Vector3.zero;
 		}
-
+		
+		public void OnColliderHit(ControllerColliderHit hit) 
+		{			
+			RaycastHit rHit;
+			if( Physics.Raycast(hit.point + Vector3.up, -Vector3.up, out rHit) )
+			{
+				float gAngle = Vector3.Angle(hit.normal, Vector3.up);
+				GroundAngle = gAngle;
+				//if( Mathf.Abs( gAngle ) <= controller.slopeLimit )
+				GroundHit = hit;
+				checkForSliding();
+			}
+		}	
+		
 		#region Movement Functions
 
 		private void addGravity ()
@@ -130,7 +147,17 @@ namespace BetterCharacterControllerFramework
 
 		private void checkForSliding ()
 		{
-			sliding = false;
+			sliding = false;			
+			if(groundHit == null) return;
+			if( IsClamping && GroundAngle > controller.slopeLimit )
+			{
+				sliding = true;
+				Debug.Log("sliding");
+				Vector3 hitNormal = groundHit.normal;
+				moveVector += new Vector3( hitNormal.x, -hitNormal.y, hitNormal.z );
+				Vector3.OrthoNormalize( ref hitNormal, ref moveVector );
+				moveVector *= motor.Speed;
+			}
 		}
 	}
 
