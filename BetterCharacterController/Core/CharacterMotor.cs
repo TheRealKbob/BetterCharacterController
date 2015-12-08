@@ -42,21 +42,20 @@ namespace BetterCharacterControllerFramework
 		{
 			if( PlayerInputEnabled ) stateMachine.DoUpdate();
 			locomotion.UpdatePhase();
-			//locomotion.UpdatePhase( 1 );
 			inputVector.y = 0;
 		}
 		
 		public void Move( float x, float z ){ Move( new Vector2(x, z) ); }
 		public void Move( Vector2 force )
 		{
-			//if( !PlayerControl || !PlayerInputEnabled ) return;
+			if( !PlayerControl || !PlayerInputEnabled ) return;
 			inputVector.x = force.x;
 			inputVector.z = force.y;
 		}
 
 		public void Jump()
 		{
-			//if( !PlayerControl || !PlayerInputEnabled ) return;
+			if( !PlayerControl || !PlayerInputEnabled ) return;
 			inputVector.y = 1;
 		}
 		
