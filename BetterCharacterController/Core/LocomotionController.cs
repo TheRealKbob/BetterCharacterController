@@ -77,8 +77,8 @@ namespace BetterCharacterControllerFramework
 
 		public void UpdatePhase()
 		{
-		
-			updateGroundClampPosition();					
+			updateGroundClampPosition();
+			if( sliding ) addSlideForce();
 			addGravity();
 			moveVector = transform.TransformDirection( moveVector );
 			grounded = ( controller.Move( MoveForce ) & CollisionFlags.Below ) != 0;
@@ -99,7 +99,7 @@ namespace BetterCharacterControllerFramework
 				GroundHit = hit;
 				checkForSliding();
 			}
-		}	
+		}
 		
 		#region Movement Functions
 
@@ -107,6 +107,14 @@ namespace BetterCharacterControllerFramework
 		{
 			antiBumpFactor = ( IsClamping ) ? 20f : 1f;
 			moveVector.y -= ( motor.Gravity * antiBumpFactor ) * Time.deltaTime;
+		}
+		
+		private void addSlideForce()
+		{
+			Vector3 hitNormal = groundHit.normal;
+			moveVector = new Vector3( hitNormal.x, -hitNormal.y, hitNormal.z );
+			Vector3.OrthoNormalize( ref hitNormal, ref moveVector );
+			moveVector *= motor.Speed;
 		}
 		
 		public void AddForce ( Vector3 force )
@@ -128,6 +136,7 @@ namespace BetterCharacterControllerFramework
 		{
 			moveVector.y = force * motor.JumpHeight;
 		}
+				
 		#endregion
 		
 		private void intializeController()
@@ -150,14 +159,7 @@ namespace BetterCharacterControllerFramework
 			sliding = false;			
 			if(groundHit == null) return;
 			if( IsClamping && GroundAngle > controller.slopeLimit )
-			{
 				sliding = true;
-				Debug.Log("sliding");
-				Vector3 hitNormal = groundHit.normal;
-				moveVector += new Vector3( hitNormal.x, -hitNormal.y, hitNormal.z );
-				Vector3.OrthoNormalize( ref hitNormal, ref moveVector );
-				moveVector *= motor.Speed;
-			}
 		}
 	}
 
