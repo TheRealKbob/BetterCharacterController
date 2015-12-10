@@ -99,6 +99,11 @@ namespace BetterCharacterControllerFramework
 				GroundHit = hit;
 				checkForSliding();
 			}
+			else
+			{
+				sliding = false;
+			}
+			
 		}
 		
 		#region Movement Functions
@@ -156,10 +161,14 @@ namespace BetterCharacterControllerFramework
 
 		private void checkForSliding ()
 		{
+			bool slidingWas = sliding;
+			
 			sliding = false;			
 			if(groundHit == null) return;
 			if( IsClamping && GroundAngle > controller.slopeLimit )
 				sliding = true;
+				
+			if( slidingWas != sliding ) Debug.Log( "slidechange" );
 		}
 	}
 
