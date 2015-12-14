@@ -1,16 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug Mac" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../BetterCharacterController/Core/CharacterMotor.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ThirdPersonCamera.cs">
     <Files>
-      <File FileName="../BetterCharacterController/Core/CharacterMotor.cs" Line="55" Column="99" />
-      <File FileName="../BetterCharacterController/Core/LocomotionController.cs" Line="98" Column="4" />
-      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerIdleState.cs" Line="22" Column="9" />
-      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerMovingState.cs" Line="20" Column="41" />
-      <File FileName="../../../../../../Desktop/Temp.cs" Line="150" Column="2" />
-      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerJumpingState.cs" Line="23" Column="40" />
-      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerFallingState.cs" Line="22" Column="40" />
-      <File FileName="../BetterCharacterController/Core/GroundController.cs" Line="37" Column="18" />
-      <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerSlideState.cs" Line="17" Column="48" />
+      <File FileName="../BetterCharacterController/Core/CharacterMotor.cs" Line="16" Column="41" />
+      <File FileName="../BetterCharacterController/Core/LocomotionController.cs" Line="124" Column="66" />
+      <File FileName="Assets/Scripts/ThirdPersonCamera.cs" Line="19" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

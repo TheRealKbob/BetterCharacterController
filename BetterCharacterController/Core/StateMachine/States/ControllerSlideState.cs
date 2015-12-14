@@ -24,6 +24,9 @@ namespace BetterCharacterControllerFramework
 				stateMachine.CurrentState = ControllerStateType.IDLE;
 				return;
 			}
+			
+			controller.Locomotion.AddSlideForce();
+			
 		}
 		
 		public override void ExitState()

@@ -78,7 +78,8 @@ namespace BetterCharacterControllerFramework
 		public void UpdatePhase()
 		{
 			updateGroundClampPosition();
-			if( sliding ) addSlideForce();
+			//if( sliding ) addSlideForce();
+			checkForSliding();
 			addGravity();
 			moveVector = transform.TransformDirection( moveVector );
 			grounded = ( controller.Move( MoveForce ) & CollisionFlags.Below ) != 0;
@@ -89,21 +90,8 @@ namespace BetterCharacterControllerFramework
 		}
 		
 		public void OnColliderHit(ControllerColliderHit hit) 
-		{			
-			RaycastHit rHit;
-			if( Physics.Raycast(hit.point + Vector3.up, -Vector3.up, out rHit) )
-			{
-				float gAngle = Vector3.Angle(hit.normal, Vector3.up);
-				GroundAngle = gAngle;
-				//if( Mathf.Abs( gAngle ) <= controller.slopeLimit )
-				GroundHit = hit;
-				checkForSliding();
-			}
-			else
-			{
-				sliding = false;
-			}
-			
+		{	
+			GroundHit = hit;
 		}
 		
 		#region Movement Functions
@@ -114,10 +102,10 @@ namespace BetterCharacterControllerFramework
 			moveVector.y -= ( motor.Gravity * antiBumpFactor ) * Time.deltaTime;
 		}
 		
-		private void addSlideForce()
+		public void AddSlideForce()
 		{
 			Vector3 hitNormal = groundHit.normal;
-			moveVector = new Vector3( hitNormal.x, -hitNormal.y, hitNormal.z );
+			moveVector = new Vector3( moveVector.x + hitNormal.x, -hitNormal.y, moveVector.z + hitNormal.z );
 			Vector3.OrthoNormalize( ref hitNormal, ref moveVector );
 			moveVector *= motor.Speed;
 		}
@@ -161,14 +149,27 @@ namespace BetterCharacterControllerFramework
 
 		private void checkForSliding ()
 		{
-			bool slidingWas = sliding;
-			
-			sliding = false;			
-			if(groundHit == null) return;
-			if( IsClamping && GroundAngle > controller.slopeLimit )
-				sliding = true;
-				
-			if( slidingWas != sliding ) Debug.Log( "slidechange" );
+		
+			sliding = false;
+			if( IsGrounded )
+			{
+				RaycastHit hit;
+				if ( Physics.Raycast( transform.position, -Vector3.up, out hit, controller.height * .5f + controller.radius ) )
+				{
+					if ( Vector3.Angle( hit.normal, Vector3.up ) > controller.slopeLimit )
+						sliding = true;
+				}
+				else {
+					Physics.Raycast( groundHit.point + Vector3.up, -Vector3.up, out hit );
+					if ( Vector3.Angle( hit.normal, Vector3.up ) > controller.slopeLimit )
+						sliding = true;
+				}
+			}
+		
+//			sliding = false;			
+//			if(groundHit == null) return;
+//			if( IsClamping && GroundAngle > controller.slopeLimit )
+//				sliding = true;
 		}
 	}
 
