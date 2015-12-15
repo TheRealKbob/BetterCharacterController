@@ -35,9 +35,14 @@ public class InputManager : MonoBehaviour {
 			controller.Jump();
 
 		if( Input.GetKeyDown( KeyCode.LeftShift ) )
-			controller.Speed = 15;
+		{
+			Debug.Log("off");
+			controller.PlayerInputEnabled = false;
+		}
 		else if( Input.GetKeyUp( KeyCode.LeftShift ) )
-			controller.Speed = 8;
-
+		{
+			Debug.Log("on");
+			controller.PlayerInputEnabled = true;
+		}
 	}
 }

@@ -7,26 +7,26 @@ namespace BetterCharacterControllerFramework
 	public class ControllerIdleState : ControllerState
 	{
 		
-		public ControllerIdleState( ControllerStateMachine stateMachine, CharacterMotor controller ) : base( stateMachine, controller ){}
+		public ControllerIdleState( ControllerStateMachine stateMachine, CharacterMotor controller, LocomotionController locomotion  ) : base( stateMachine, controller, locomotion ){}
 		
 		public override void EnterState()
 		{
 			Debug.Log("Enter Idle State");
-			controller.PlayerControl = controller.PlayerInputEnabled;
-			controller.Locomotion.ClampingEnabled = true;
-			controller.Locomotion.AddHorizontalForce( new Vector2( 0, 0 ) );
+			controller.PlayerControl = true;
+			locomotion.ClampingEnabled = true;
+			locomotion.AddHorizontalForce( new Vector2( 0, 0 ) );
 		}
 		
 		public override void OnUpdate()
 		{
 		
-			if( !controller.Locomotion.IsGrounded )
+			if( !locomotion.IsGrounded )
 			{
 				stateMachine.CurrentState = ControllerStateType.FALLING;
 				return;
 			}
 			
-			if( controller.Locomotion.Sliding )
+			if( locomotion.Sliding )
 			{
 				stateMachine.CurrentState = ControllerStateType.SLIDING;
 				return;

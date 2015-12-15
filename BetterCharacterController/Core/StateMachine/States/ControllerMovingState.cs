@@ -7,24 +7,24 @@ namespace BetterCharacterControllerFramework
 	public class ControllerMovingState : ControllerState
 	{
 	
-		public ControllerMovingState( ControllerStateMachine stateMachine, CharacterMotor controller ) : base( stateMachine, controller ){}
+		public ControllerMovingState( ControllerStateMachine stateMachine, CharacterMotor controller, LocomotionController locomotion  ) : base( stateMachine, controller, locomotion ){}
 
 		public override void EnterState()
 		{
 			Debug.Log("Enter Moving State");
-			controller.PlayerControl = controller.PlayerInputEnabled;
-			controller.Locomotion.ClampingEnabled = true;
+			controller.PlayerControl = true;
+			locomotion.ClampingEnabled = true;
 		}
 		
 		public override void OnUpdate()
 		{
-			if( !controller.Locomotion.IsGrounded )
+			if( !locomotion.IsGrounded )
 			{
 				stateMachine.CurrentState = ControllerStateType.FALLING;
 				return;
 			}
 			
-			if( controller.Locomotion.Sliding )
+			if( locomotion.Sliding )
 			{
 				stateMachine.CurrentState = ControllerStateType.SLIDING;
 				return;
@@ -44,7 +44,7 @@ namespace BetterCharacterControllerFramework
 				return;
 			}
 			
-			controller.Locomotion.AddForce( new Vector3( ih.x, 0, ih.y ) );
+			locomotion.AddForce( new Vector3( ih.x, 0, ih.y ) );
 		}
 		
 		public override void ExitState()

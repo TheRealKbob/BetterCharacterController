@@ -7,8 +7,10 @@ namespace BetterCharacterControllerFramework
 	public class LocomotionController
 	{
 
+		#region controllers
 		private CharacterMotor motor;
 		private CharacterController controller;
+		#endregion
 		
 		private Transform transform;
 		
@@ -48,6 +50,7 @@ namespace BetterCharacterControllerFramework
 		#endregion
 
 		#region Physics Simulation
+		private float gravity{ get{ return motor.Gravity * antiBumpFactor; } }
 		private bool grounded = false;
 		public bool IsGrounded
 		{ 
@@ -78,7 +81,6 @@ namespace BetterCharacterControllerFramework
 		public void UpdatePhase()
 		{
 			updateGroundClampPosition();
-			//if( sliding ) addSlideForce();
 			checkForSliding();
 			addGravity();
 			moveVector = transform.TransformDirection( moveVector );
@@ -95,19 +97,18 @@ namespace BetterCharacterControllerFramework
 		}
 		
 		#region Movement Functions
-
 		private void addGravity ()
 		{
 			antiBumpFactor = ( IsClamping ) ? 20f : 1f;
-			moveVector.y -= ( motor.Gravity * antiBumpFactor ) * Time.deltaTime;
+			moveVector.y -= gravity * Time.deltaTime;
 		}
 		
 		public void AddSlideForce()
 		{
 			Vector3 hitNormal = groundHit.normal;
-			moveVector = new Vector3( moveVector.x + hitNormal.x, -hitNormal.y, moveVector.z + hitNormal.z );
+			moveVector = new Vector3( hitNormal.x, -hitNormal.y, hitNormal.z );
 			Vector3.OrthoNormalize( ref hitNormal, ref moveVector );
-			moveVector *= motor.Speed;
+			moveVector *= motor.Gravity;
 		}
 		
 		public void AddForce ( Vector3 force )
@@ -129,7 +130,6 @@ namespace BetterCharacterControllerFramework
 		{
 			moveVector.y = force * motor.JumpHeight;
 		}
-				
 		#endregion
 		
 		private void intializeController()
@@ -142,14 +142,11 @@ namespace BetterCharacterControllerFramework
 		private void updateGroundClampPosition ()
 		{
 			if( !IsClamping || lastGroundPosition == Vector3.zero ) return;
-			
 			transform.position += ( clampedTo.position - lastGroundPosition );
-			
 		}
 
 		private void checkForSliding ()
 		{
-		
 			sliding = false;
 			if( IsGrounded )
 			{
@@ -165,11 +162,6 @@ namespace BetterCharacterControllerFramework
 						sliding = true;
 				}
 			}
-		
-//			sliding = false;			
-//			if(groundHit == null) return;
-//			if( IsClamping && GroundAngle > controller.slopeLimit )
-//				sliding = true;
 		}
 	}
 

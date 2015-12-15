@@ -6,9 +6,11 @@ namespace BetterCharacterControllerFramework
 
 	public class CharacterMotor : MonoBehaviour
 	{	
+	
+		#region controllers
 		private ControllerStateMachine stateMachine;
 		private LocomotionController locomotion;
-		public LocomotionController Locomotion{ get{ return locomotion; } }
+		#endregion
 		
 		#region Editor Properties
 		public LayerMask EnvironmentLayer;
@@ -21,21 +23,37 @@ namespace BetterCharacterControllerFramework
 		public bool SlideDownSlopes = true;
 		#endregion
 		
+		#region Getters/Setters
+		
+		public Vector3 Velocity{ get{ return locomotion.Velocity; } }
+		
 		private bool playerControl = true;
 		public bool PlayerControl
 		{ 
-			set{ playerControl = value; } 
-			get{ return playerControl; } 
+			set
+			{ 
+				if( value )
+					playerControl = PlayerInputEnabled;
+				else
+				{
+					playerControl = value;
+					inputVector = Vector3.zero;
+				}
+			} 
+			get{ return playerControl; }
 		}
+		#endregion
 		
+		#region Input
 		private Vector3 inputVector = Vector3.zero;
 		public Vector2 HorizontalInput{ get{ return new Vector2( inputVector.x, inputVector.z ); } }
 		public float VerticalInput{ get{ return inputVector.y; } }
+		#endregion
 		
 		void Start()
 		{
 			locomotion = new LocomotionController( this );
-			stateMachine = new ControllerStateMachine( this );
+			stateMachine = new ControllerStateMachine( this, locomotion );
 		}
 
 		void FixedUpdate()

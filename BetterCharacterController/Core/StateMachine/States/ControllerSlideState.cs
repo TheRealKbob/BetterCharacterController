@@ -7,25 +7,24 @@ namespace BetterCharacterControllerFramework
 	public class ControllerSlideState : ControllerState
 	{
 		
-		public ControllerSlideState( ControllerStateMachine stateMachine, CharacterMotor controller ) : base( stateMachine, controller ){}
+		public ControllerSlideState( ControllerStateMachine stateMachine, CharacterMotor controller, LocomotionController locomotion  ) : base( stateMachine, controller, locomotion ){}
 		
 		public override void EnterState()
 		{
-			Debug.Log("Enter Slide State");
-			controller.Locomotion.AddHorizontalForce( new Vector2( 0, 0 ) );
-			controller.Locomotion.AddVerticalForce( 0 );
+			locomotion.AddHorizontalForce( new Vector2( 0, 0 ) );
+			locomotion.AddVerticalForce( 0 );
 			controller.PlayerControl = false;
 		}
 		
 		public override void OnUpdate()
 		{
-			if( !controller.Locomotion.Sliding )
+			if( !locomotion.Sliding )
 			{
 				stateMachine.CurrentState = ControllerStateType.IDLE;
 				return;
 			}
 			
-			controller.Locomotion.AddSlideForce();
+			locomotion.AddSlideForce();
 			
 		}
 		

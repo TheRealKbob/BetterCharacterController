@@ -17,12 +17,8 @@ namespace BetterCharacterControllerFramework
 	
 	
 	public class ControllerStateMachine
-	{
-		
-		private CharacterMotor controller;
-		
-		private ControllerState state = new ControllerState(null, null);
-		
+	{		
+		private ControllerState state = new ControllerState(null, null, null);	
 		private Dictionary<ControllerStateType, ControllerState> stateMap = new Dictionary<ControllerStateType, ControllerState>();
 		
 		public ControllerStateType CurrentState
@@ -40,16 +36,13 @@ namespace BetterCharacterControllerFramework
 			}
 		}
 		
-		public ControllerStateMachine( CharacterMotor controller )
+		public ControllerStateMachine( CharacterMotor controller, LocomotionController locomotion )
 		{
-		
-			this.controller = controller;
-		
-			addState( ControllerStateType.IDLE, new ControllerIdleState( this, controller ) );
-			addState( ControllerStateType.MOVING, new ControllerMovingState( this, controller ) );
-			addState( ControllerStateType.FALLING, new ControllerFallingState( this, controller ) );
-			addState( ControllerStateType.JUMPING, new ControllerJumpingState( this, controller ) );
-			addState( ControllerStateType.SLIDING, new ControllerSlideState( this, controller ) );
+			addState( ControllerStateType.IDLE, new ControllerIdleState( this, controller, locomotion ) );
+			addState( ControllerStateType.MOVING, new ControllerMovingState( this, controller, locomotion ) );
+			addState( ControllerStateType.FALLING, new ControllerFallingState( this, controller, locomotion ) );
+			addState( ControllerStateType.JUMPING, new ControllerJumpingState( this, controller, locomotion ) );
+			addState( ControllerStateType.SLIDING, new ControllerSlideState( this, controller, locomotion ) );
 			
 			CurrentState = ControllerStateType.IDLE;
 		}
@@ -76,13 +69,15 @@ namespace BetterCharacterControllerFramework
 	{
 		protected ControllerStateMachine stateMachine;
 		protected CharacterMotor controller;
+		protected LocomotionController locomotion;
 
 		public ControllerStateType ID;
 	
-		public ControllerState(ControllerStateMachine stateMachine, CharacterMotor controller)
+		public ControllerState( ControllerStateMachine stateMachine, CharacterMotor controller, LocomotionController locomotion )
 		{
 			this.stateMachine = stateMachine;
 			this.controller = controller;
+			this.locomotion = locomotion;
 		}
 		
 		public virtual void EnterState(){}
