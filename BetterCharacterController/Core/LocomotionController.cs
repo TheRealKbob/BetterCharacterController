@@ -154,16 +154,9 @@ namespace BetterCharacterControllerFramework
 			if( IsGrounded )
 			{
 				RaycastHit hit;
-				if ( Physics.Raycast( transform.position, -Vector3.up, out hit, controller.height * .5f + controller.radius ) )
-				{
-					if ( Vector3.Angle( hit.normal, Vector3.up ) > controller.slopeLimit )
-						sliding = true;
-				}
-				else {
-					Physics.Raycast( groundHit.point + Vector3.up, -Vector3.up, out hit );
-					if ( Vector3.Angle( hit.normal, Vector3.up ) > controller.slopeLimit )
-						sliding = true;
-				}
+				Physics.Raycast( groundHit.point + Vector3.up, -Vector3.up, out hit );
+				if ( Vector3.Angle( hit.normal, Vector3.up ) > controller.slopeLimit )
+					sliding = true;
 			}
 		}
 	}
