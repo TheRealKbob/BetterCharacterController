@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using BetterCharacterControllerFramework;
+using ThirstPersonShooterCamera;
 
 public class InputManager : MonoBehaviour {
 
 	private CharacterMotor controller;
+	private ThirstPersonCamera cam;
 
 	private Vector2 previousInput = Vector2.zero;
 
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterMotor>();
+		cam = GetComponent<ThirstPersonCamera>();
 	}
 	
 	// Update is called once per frame
@@ -34,15 +37,7 @@ public class InputManager : MonoBehaviour {
 		if( Input.GetKeyDown( KeyCode.Space ) )
 			controller.Jump();
 
-		if( Input.GetKeyDown( KeyCode.LeftShift ) )
-		{
-			Debug.Log("off");
-			controller.PlayerInputEnabled = false;
-		}
-		else if( Input.GetKeyUp( KeyCode.LeftShift ) )
-		{
-			Debug.Log("on");
-			controller.PlayerInputEnabled = true;
-		}
+		cam.Rotate( new Vector2( Input.GetAxis( "Mouse X" ), -Input.GetAxis( "Mouse Y" ) ) );
+		
 	}
 }

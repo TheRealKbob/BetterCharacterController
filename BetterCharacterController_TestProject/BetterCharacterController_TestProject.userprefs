@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerCamera.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../BetterCharacterController/Core/CharacterMotor.cs">
     <Files>
       <File FileName="../BetterCharacterController/Core/CharacterMotor.cs" Line="50" Column="61" />
       <File FileName="../BetterCharacterController/Core/LocomotionController.cs" Line="126" Column="66" />
@@ -10,8 +10,8 @@
       <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerFallingState.cs" Line="14" Column="31" />
       <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerJumpingState.cs" Line="14" Column="37" />
       <File FileName="../BetterCharacterController/Core/StateMachine/States/ControllerSlideState.cs" Line="33" Column="34" />
-      <File FileName="Assets/Scripts/Debug/InputManager.cs" Line="45" Column="41" />
-      <File FileName="Assets/Scripts/PlayerCamera.cs" Line="8" Column="2" />
+      <File FileName="Assets/Scripts/Debug/InputManager.cs" Line="46" Column="4" />
+      <File FileName="Assets/Scripts/PlayerCamera.cs" Line="37" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

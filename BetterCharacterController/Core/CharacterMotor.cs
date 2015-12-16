@@ -32,7 +32,7 @@ namespace BetterCharacterControllerFramework
 		{ 
 			set
 			{ 
-				if( value )
+				if( value == true )
 					playerControl = PlayerInputEnabled;
 				else
 				{

@@ -81,7 +81,9 @@ namespace BetterCharacterControllerFramework
 		public void UpdatePhase()
 		{
 			updateGroundClampPosition();
-			checkForSliding();
+			if( motor.SlideDownSlopes )
+				checkForSliding();
+				
 			addGravity();
 			moveVector = transform.TransformDirection( moveVector );
 			grounded = ( controller.Move( MoveForce ) & CollisionFlags.Below ) != 0;
@@ -108,6 +110,7 @@ namespace BetterCharacterControllerFramework
 			Vector3 hitNormal = groundHit.normal;
 			moveVector = new Vector3( hitNormal.x, -hitNormal.y, hitNormal.z );
 			Vector3.OrthoNormalize( ref hitNormal, ref moveVector );
+			moveVector = Quaternion.Euler( new Vector3( 0, -transform.rotation.eulerAngles.y, 0 ) ) * moveVector;
 			moveVector *= motor.Gravity;
 		}
 		
